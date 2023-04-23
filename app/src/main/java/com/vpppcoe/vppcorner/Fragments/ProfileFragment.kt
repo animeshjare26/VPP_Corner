@@ -78,9 +78,9 @@ class ProfileFragment : Fragment() {
         viewOrdersRecyclerView = view.findViewById(R.id.view_orders_recycler_view)
 //        goToCart = view.findViewById(R.id.go_to_cart)
 
-        viewOrdersRecyclerView.layoutManager = LinearLayoutManager(context)
-        viewOrdersRecyclerView.setHasFixedSize(true)
-        adapter3 = ViewOrdersAdapter()
+//        viewOrdersRecyclerView.layoutManager = LinearLayoutManager(context)
+//        viewOrdersRecyclerView.setHasFixedSize(true)
+//        adapter3 = ViewOrdersAdapter()
 
 //        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 //            override fun onQueryTextSubmit(query: String?): Boolean {

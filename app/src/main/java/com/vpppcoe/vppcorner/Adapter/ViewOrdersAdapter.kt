@@ -10,9 +10,7 @@ import com.vpppcoe.vppcorner.Model.Food
 import com.vpppcoe.vppcorner.Model.Orders
 import com.vpppcoe.vppcorner.R
 
-class ViewOrdersAdapter : RecyclerView.Adapter<ViewOrdersAdapter.MyViewHolder2>() {
-
-    private var orders = ArrayList<Orders>()
+class ViewOrdersAdapter(private var orders : ArrayList<Orders>) : RecyclerView.Adapter<ViewOrdersAdapter.MyViewHolder2>() {
 
     class MyViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

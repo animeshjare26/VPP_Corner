@@ -1,10 +1,10 @@
 package com.vpppcoe.vppcorner.Model
 
 data class Orders(
-    val paymentSuccess: Boolean,
-    var order_time: String?,
+    var addition: String? = " ",
     var amount: Int = 0,
+    var items: String? = " ",
     var order_number: Int = 0,
-    var addition: String? = null,
-    var items: String? = null
+    var order_time: String? = " ",
+    val paymentSuccess: Boolean = true
 )

@@ -94,21 +94,21 @@ class CheckOut : AppCompatActivity(), PaymentResultListener {
         databaseForOrderNumber = FirebaseDatabase.getInstance().getReference("number")
         databaseForOrderNumber.setValue(counterVar+1)
         temporaryList.clear()
-            updateData(paymentSuccess,time,Amount,Counter,addition,orders!!)
+            updateData(addition,amount, orders!!,Counter,time,paymentSuccess)
         startActivity(Intent(this,NewMainActivity::class.java))
         Toast.makeText(this,"Payment Successful $p0",Toast.LENGTH_LONG).show()
     }
 
     private fun updateData(
-        paymentSuccess: Boolean,
-        time: String,
-        amount: Int,
-        counter : Int,
         addition: String,
-        items:String
+        amount: Int,
+        items:String,
+        counter : Int,
+        time: String,
+        paymentSuccess: Boolean
     ) {
         database = FirebaseDatabase.getInstance().getReference("Orders")
-        val orders = Orders(paymentSuccess,time, amount, counter,addition,items)
+        val orders = Orders(addition,amount, items, counter,time,paymentSuccess)
 
         totalAmount = 0
         database = FirebaseDatabase.getInstance().getReference("Orders")
