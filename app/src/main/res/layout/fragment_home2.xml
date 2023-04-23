@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".NewMainActivity"
+    android:weightSum="1"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_marginBottom="20dp"
+    >
+
+    <TextView
+        android:id="@+id/greeting_name_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Welcome"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/food_recycler_view_2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/food_item"
+        android:padding="4dp"
+        android:layout_weight="1"
+        >
+    </androidx.recyclerview.widget.RecyclerView>
+
+<!--    <TextView-->
+<!--        android:id="@+id/go_to_cart"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:text="Go to cart"-->
+<!--        android:gravity="center"-->
+<!--        android:textSize="24sp"-->
+<!--        android:layout_weight="0.1"-->
+<!--        />-->
+
+
+<!--    <com.google.android.material.card.MaterialCardView-->
+<!--        android:id="@+id/material_card_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:cardCornerRadius="8dp"-->
+<!--        android:layout_margin="8dp"-->
+<!--        app:cardElevation="8dp"-->
+<!--        >-->
+
+<!--        <androidx.appcompat.widget.SearchView-->
+<!--            android:id="@+id/search_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:queryHint="Search here..."-->
+<!--            app:iconifiedByDefault="false"-->
+<!--            app:queryBackground="@android:color/transparent"-->
+<!--            />-->
+
+<!--    </com.google.android.material.card.MaterialCardView>-->
+
+
+</LinearLayout>

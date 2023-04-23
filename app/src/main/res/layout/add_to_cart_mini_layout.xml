@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="3"
+    >
+
+    <TextView
+        android:id="@+id/minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="@color/green"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:text="-"
+        android:background="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/add_to_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:text="Add"
+        android:background="@drawable/add_button"
+        />
+
+    <TextView
+        android:id="@+id/plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="@color/green"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:text="+"
+        android:background="@color/white"
+        />
+
+</LinearLayout>
