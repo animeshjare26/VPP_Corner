@@ -95,7 +95,8 @@ class CheckOut : AppCompatActivity(), PaymentResultListener {
         databaseForOrderNumber.setValue(counterVar+1)
         temporaryList.clear()
             updateData(addition,amount, orders!!,Counter,time,paymentSuccess)
-        startActivity(Intent(this,NewMainActivity::class.java))
+        finish()
+        startActivity(Intent(this,LoginActivity::class.java))
         Toast.makeText(this,"Payment Successful $p0",Toast.LENGTH_LONG).show()
     }
 
