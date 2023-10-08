@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vpppcoe.vppcorner.Adapter.CartAdapter
 import com.vpppcoe.vppcorner.Adapter.MyAdapter
 import com.vpppcoe.vppcorner.Adapter.temporaryList
+import com.vpppcoe.vppcorner.Adapter.totalAmount
 import com.vpppcoe.vppcorner.CheckOut
 import com.vpppcoe.vppcorner.Model.FoodViewModel
 import com.vpppcoe.vppcorner.R
@@ -40,6 +41,7 @@ class CartFragment : Fragment() {
     private var param2: String? = null
     private lateinit var proceedToPay: TextView
     private lateinit var addtionalInfo : EditText
+    private lateinit var totalValue : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +86,7 @@ class CartFragment : Fragment() {
         cartRecyclerView = view.findViewById(R.id.cart_food_recycler_view)
         proceedToPay = view.findViewById(R.id.proceed_to_pay)
         addtionalInfo = view.findViewById(R.id.additional_info)
+        totalValue = view.findViewById(R.id.total_amount)
 
 
 //        goToCart = view.findViewById(R.id.go_to_cart)
@@ -93,6 +96,7 @@ class CartFragment : Fragment() {
 //            startActivity(intent)
 //        }
 
+        totalValue.text = "Total = " + totalAmount.toString()
 
         cartRecyclerView.layoutManager = LinearLayoutManager(context)
         cartRecyclerView.setHasFixedSize(true)

@@ -23,4 +23,5 @@
     <color name="textColor_new">#6c757d</color>
     <color name="red">#DF0707</color>
     <color name="not_available">#31DF0707</color>
+    <color name="available">#9CFFA1</color>
 </resources>

@@ -6,5 +6,8 @@ data class Orders(
     var items: String? = " ",
     var order_number: Int = 0,
     var order_time: String? = " ",
-    val paymentSuccess: Boolean = true
+    val paymentSuccess: Boolean = true,
+    var email : String = " ",
+    var id : String = " ",
+    var noti : Boolean = false
 )

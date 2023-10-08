@@ -1,16 +1,21 @@
 package com.vpppcoe.vppcorner.Adapter
 
+import android.os.Build
 import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.vpppcoe.vppcorner.Model.Food
 import com.vpppcoe.vppcorner.Model.Orders
+import com.vpppcoe.vppcorner.NotificationHelper
 import com.vpppcoe.vppcorner.R
 
 class ViewOrdersAdapter(private var orders: ArrayList<Orders>) :
@@ -18,6 +23,10 @@ class ViewOrdersAdapter(private var orders: ArrayList<Orders>) :
 
     private lateinit var dbRef: FirebaseDatabase
     private lateinit var dbRef2: FirebaseDatabase
+    private lateinit var dbRefForUpdateCompletion: FirebaseDatabase
+    private lateinit var dbRefForUpdateCompletion1: FirebaseDatabase
+    private lateinit var auth: FirebaseAuth
+
 
     class MyViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -47,6 +56,7 @@ class ViewOrdersAdapter(private var orders: ArrayList<Orders>) :
         return orders.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onBindViewHolder(holder: MyViewHolder2, position: Int) {
         val currentItem = orders[position]
 //
@@ -59,8 +69,37 @@ class ViewOrdersAdapter(private var orders: ArrayList<Orders>) :
 //        holder.avail.text = currentItem.available.toString()
 
         holder.remove.setOnClickListener {
+            auth = FirebaseAuth.getInstance()
             dbRef = FirebaseDatabase.getInstance()
             dbRef2 = FirebaseDatabase.getInstance()
+            dbRefForUpdateCompletion = FirebaseDatabase.getInstance()
+            dbRefForUpdateCompletion1 = FirebaseDatabase.getInstance()
+            var currentOrderEmail = currentItem.id
+
+            dbRefForUpdateCompletion.getReference("History/${currentOrderEmail.substring(0,11)}")
+                .child("orders")
+                .child("${currentItem.order_number}")
+                .child("completion")
+                .setValue(true).addOnSuccessListener {
+                    Toast.makeText(
+                        holder.itemView.context,
+                        "Updated success",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            val id = dbRefForUpdateCompletion.getReference("History/${currentOrderEmail.substring(0,11)}")
+
+
+            dbRefForUpdateCompletion1.getReference("History/${currentOrderEmail.substring(0,11)}")
+                .child("orders")
+                .child("${currentItem.order_number}")
+                .child("noti")
+                .setValue(true).addOnSuccessListener {
+                        val msg : String = "Order Completed"
+                        NotificationHelper(holder.itemView.context,msg).Notification()
+                }
+
             dbRef.getReference("Orders/${currentItem.order_number}").removeValue().addOnCompleteListener {
 //                dbRef2.getReference("number").setValue(+1)
                 orders.remove(currentItem)

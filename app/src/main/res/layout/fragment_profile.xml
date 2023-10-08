@@ -3,24 +3,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".Fragments.ProfileFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding = "10dp"
-        >
-
-    <Button
-        android:id="@+id/sign_out_btn"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:text="Sign Out"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        />
+        <LinearLayout
+            android:id="@+id/click_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1.5"
+            android:background="@drawable/rounded_with_white_bg"
+            android:padding="4dp"
+            >
+
+            <ImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="0.4"
+                android:src="@drawable/profile_icon"
+                android:padding="4dp"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1.1"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                >
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    />
+
+                <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="email..."
+                    />
+
+            </LinearLayout>
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1.5"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_with_white_bg"
+            android:padding="4dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:text="Transaction History"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/food_history_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/history_item"
+                />
+
+        </LinearLayout>
+
+<!--        <Button-->
+<!--            android:id="@+id/sign_out_btn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="@color/black"-->
+<!--            android:text="Sign Out"-->
+<!--            android:fontFamily="@font/poppins"-->
+<!--            />-->
     </LinearLayout>
 </ScrollView>

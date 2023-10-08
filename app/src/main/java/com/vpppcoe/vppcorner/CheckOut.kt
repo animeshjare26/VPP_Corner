@@ -1,6 +1,10 @@
 package com.vpppcoe.vppcorner
 
+import android.app.Activity
+import android.app.ActivityManager
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +12,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.razorpay.Checkout
@@ -17,8 +22,8 @@ import com.vpppcoe.vppcorner.Adapter.temporaryList
 import com.vpppcoe.vppcorner.Adapter.totalAmount
 import com.vpppcoe.vppcorner.Fragments.additinalInfoString
 import com.vpppcoe.vppcorner.Model.Orders
+import com.vpppcoe.vppcorner.Model.History
 import com.vpppcoe.vppcorner.databinding.ActivityCheckOutBinding
-import kotlinx.coroutines.joinAll
 import org.json.JSONObject
 import java.time.LocalTime
 
@@ -31,8 +36,10 @@ class CheckOut : AppCompatActivity(), PaymentResultListener {
     private var amount : Int = new
     private lateinit var database : DatabaseReference
     private lateinit var databaseForOrderNumber : DatabaseReference
+    private lateinit var databaseForHistory : DatabaseReference
     private var listOfOrders : String? = tempListOfOrders.toString()
     private lateinit var binding: ActivityCheckOutBinding
+    private lateinit var auth : FirebaseAuth
 //    private var totalTv :TextView = findViewById(R.id.tv_total_amount_check_out)
 //    private var paymentTv :Button = findViewById(R.id.btn_pay)
 
@@ -47,12 +54,14 @@ class CheckOut : AppCompatActivity(), PaymentResultListener {
 //        val totalAmount = intent.getIntExtra("totalAmount",0)
 //        Toast.makeText(this,"Total amount $totalAmount",Toast.LENGTH_LONG).show()
 
+        auth = FirebaseAuth.getInstance()
 //        binding.tvTotalAmountCheckOut.text = totalAmount.toString()
         binding.tvTotalAmountCheckOut.text = new.toString()
         binding.btnPay.text = "Proceed to pay ₹ "+new.toString()
         binding.btnPay.setOnClickListener {
             makePayment()
         }
+
 
 
     }
@@ -91,12 +100,17 @@ class CheckOut : AppCompatActivity(), PaymentResultListener {
         val Counter = counterVar
         val Amount = new
         var orders = listOfOrders
+        var email = auth.currentUser?.email.toString()
+        var id = auth.currentUser?.email.toString().substring(0,11)
+        val noti = false
         databaseForOrderNumber = FirebaseDatabase.getInstance().getReference("number")
         databaseForOrderNumber.setValue(counterVar+1)
         temporaryList.clear()
-            updateData(addition,amount, orders!!,Counter,time,paymentSuccess)
-        finish()
-        startActivity(Intent(this,LoginActivity::class.java))
+            updateData(addition,amount, orders!!,Counter,time,paymentSuccess,email,id,false,noti
+            )
+        val intent = Intent(this,NewMainActivity::class.java)
+        intent.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
         Toast.makeText(this,"Payment Successful $p0",Toast.LENGTH_LONG).show()
     }
 
@@ -106,19 +120,33 @@ class CheckOut : AppCompatActivity(), PaymentResultListener {
         items:String,
         counter : Int,
         time: String,
-        paymentSuccess: Boolean
+        paymentSuccess: Boolean,
+        email : String,
+        id : String,
+        completion : Boolean,
+        noti : Boolean
     ) {
         database = FirebaseDatabase.getInstance().getReference("Orders")
-        val orders = Orders(addition,amount, items, counter,time,paymentSuccess)
+        val orders = Orders(addition,amount, items, counter,time,paymentSuccess,email,id,noti)
+        val history = History(counter,items,amount,time,completion,noti)
 
         totalAmount = 0
         database = FirebaseDatabase.getInstance().getReference("Orders")
+        databaseForHistory = FirebaseDatabase.getInstance().getReference("History")
+
         database.child(counter.toString()).setValue(orders)
             .addOnCompleteListener {
                 Toast.makeText(this,"Order Placed Successfully",Toast.LENGTH_LONG).show()
             }.addOnFailureListener {execption ->
                 Log.e("Vishal", execption.toString())
             }
+
+        databaseForHistory.child(id).child("orders").child(counter.toString()).setValue(history).addOnCompleteListener {
+            Toast.makeText(this,"Order Placed Successfully",Toast.LENGTH_LONG).show()
+        }.addOnFailureListener {execption ->
+            Log.e("Vishal", execption.toString())
+            Toast.makeText(this,"Not Possible",Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onPaymentError(p0: Int, p1: String?) {

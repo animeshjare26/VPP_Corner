@@ -1,5 +1,8 @@
 package com.vpppcoe.vppcorner.Repository
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
 import com.vpppcoe.vppcorner.Model.Food
@@ -34,7 +37,7 @@ class FoodRepository {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.d("dataabase", error.message)
             }
 
         })
