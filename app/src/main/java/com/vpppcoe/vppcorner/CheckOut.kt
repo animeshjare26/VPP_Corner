@@ -72,19 +72,16 @@ class CheckOut : AppCompatActivity(), PaymentResultListener {
         getOrderNumber()
         try {
             val options = JSONObject()
-            options.put("name","Vishal Ugalmugale")
-//            options.put("description","Payment of food")
-            //You can omit the image option to fetch the image from the dashboard
-//            options.put("image","https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg")
+            options.put("name","Animesh Jare")
             options.put("theme.color", "#3399cc");
             options.put("currency","INR");
             options.put("amount","${amount*100}")//pass amount in currency subunits
 
             val prefill = JSONObject()
-            prefill.put("email","")
+            prefill.put("email","animeshjare@gmail.com")
             prefill.put("contact","8425990154")
 
-            options.put("prefill",prefill)
+            options.put("prefill Details",prefill)
             co.open(this,options)
         }catch (e: Exception){
             Toast.makeText(this,"Error in payment: "+ e.message,Toast.LENGTH_LONG).show()
